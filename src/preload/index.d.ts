@@ -1,4 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
+import type { PortInfo } from '@serialport/bindings-interface'
 
 declare global {
   interface Window {

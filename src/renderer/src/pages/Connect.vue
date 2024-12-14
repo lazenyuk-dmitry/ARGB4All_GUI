@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import type { PortInfo } from '@serialport/bindings-interface'
 
 const selectedPort = ref<PortInfo>()
 const ports = ref<PortInfo[]>([])
