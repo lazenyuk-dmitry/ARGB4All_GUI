@@ -9,6 +9,7 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    resizable: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -19,7 +20,6 @@ function createWindow(): void {
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
     mainWindow.webContents.openDevTools()
-    initMainApi()
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -34,6 +34,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  initMainApi()
 }
 
 // This method will be called when Electron has finished
