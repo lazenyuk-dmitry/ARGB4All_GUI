@@ -16,8 +16,8 @@
         </template>
       </q-select>
       <div class="q-mt-md flex justify-end q-gutter-sm">
-        <q-btn color="secondary" label="Auto Connect" />
-        <q-btn color="primary" label="Connect" />
+        <q-btn color="secondary" label="Auto Connect" @click="send" />
+        <q-btn color="primary" label="Connect" @click="connect" />
       </div>
     </div>
   </q-page>
@@ -30,6 +30,18 @@ import type { PortInfo } from '@serialport/bindings-interface'
 const selectedPort = ref<PortInfo>()
 const ports = ref<PortInfo[]>([])
 let watchTimer: number | undefined = undefined
+
+const connect = async () => {
+  console.log(selectedPort.value?.path)
+
+  const port = await window.api.serialPort.connect({ path: selectedPort.value?.path })
+  console.log(port)
+}
+
+const send = async () => {
+  const data = await window.api.serialPort.send(JSON.stringify('ping'))
+  console.log(data)
+}
 
 onMounted(() => {
   watchTimer = window.setInterval(async () => {
