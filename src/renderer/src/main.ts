@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { Quasar } from 'quasar'
 import quasarLang from 'quasar/lang/en-GB'
 import quasarIconSet from 'quasar/icon-set/svg-material-icons'
+import './styles/main.scss'
 
 // Import icon libraries
 import '@quasar/extras/roboto-font/roboto-font.css'
@@ -11,6 +12,7 @@ import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
 import App from './App.vue'
+import Router from './router'
 
 const myApp = createApp(App)
 
@@ -22,5 +24,6 @@ myApp.use(Quasar, {
     dark: true
   }
 })
+myApp.use(Router)
 
 myApp.mount('#app')
