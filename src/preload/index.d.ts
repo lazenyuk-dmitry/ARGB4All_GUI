@@ -8,7 +8,10 @@ declare global {
       serialPort: {
         list: () => Promise<PortInfo[]>
         connect: (options: SerialPortOpenOptions) => Promise<ConnectionInfo>
-        send: (string: JSON) => Promise<string>
+        write: (string: string) => Promise<string>
+        subscribe: (
+          callback: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+        ) => Promise<void>
       }
     }
   }

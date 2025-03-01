@@ -36,11 +36,14 @@ const connect = async () => {
 
   const port = await window.api.serialPort.connect({ path: selectedPort.value?.path })
   console.log(port)
+
+  window.api.serialPort.subscribe((_e, data) => {
+    console.log('RECEVID: ', data)
+  })
 }
 
 const send = async () => {
-  const data = await window.api.serialPort.send(JSON.stringify('ping'))
-  console.log(data)
+  await window.api.serialPort.write('0:#fffccc;')
 }
 
 onMounted(() => {

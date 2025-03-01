@@ -7,6 +7,9 @@ export default {
     connect: (options: SerialPortOpenOptions): Promise<ConnectionInfo> => {
       return ipcRenderer.invoke('serialPort:connect', options)
     },
-    send: (string: JSON) => ipcRenderer.invoke('serialPort:send', string)
+    write: (string: string) => ipcRenderer.invoke('serialPort:write', string),
+    subscribe: (callback: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void) => {
+      ipcRenderer.on('serialPort:data', callback)
+    }
   }
 }
