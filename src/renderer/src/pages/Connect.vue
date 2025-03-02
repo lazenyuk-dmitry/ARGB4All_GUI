@@ -16,8 +16,8 @@
         </template>
       </q-select>
       <div class="q-mt-md flex justify-end q-gutter-sm">
-        <q-btn color="secondary" label="Auto Connect" @click="send" />
-        <q-btn color="primary" label="Connect" @click="connect" />
+        <!-- <q-btn color="secondary" label="Auto Connect" /> -->
+        <q-btn color="primary" label="Connect" @click="onConnect" />
       </div>
     </div>
   </q-page>
@@ -26,29 +26,28 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { PortInfo } from '@serialport/bindings-interface'
+import { useConnectionStore } from '@renderer/store/connection'
+import { useRouter } from 'vue-router'
 
 const selectedPort = ref<PortInfo>()
 const ports = ref<PortInfo[]>([])
 let watchTimer: number | undefined = undefined
 
-const connect = async () => {
-  console.log(selectedPort.value?.path)
+const { connect, availableList } = useConnectionStore()
+const router = useRouter()
 
-  const port = await window.api.serialPort.connect({ path: selectedPort.value?.path })
-  console.log(port)
-
-  window.api.serialPort.subscribe((_e, data) => {
-    console.log('RECEVID: ', data)
-  })
+const onConnect = async () => {
+  const path = selectedPort.value?.path
+  if (path) {
+    await connect(path)
+    router.push('/')
+  }
 }
 
-const send = async () => {
-  await window.api.serialPort.write('0:#fffccc;')
-}
-
-onMounted(() => {
+onMounted(async () => {
+  ports.value = await availableList()
   watchTimer = window.setInterval(async () => {
-    ports.value = (await window.api.serialPort.list()).filter((port) => port.productId)
+    ports.value = await availableList()
   }, 1000)
 })
 onUnmounted(() => {

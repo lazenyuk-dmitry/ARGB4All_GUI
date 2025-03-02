@@ -9,9 +9,10 @@ declare global {
         list: () => Promise<PortInfo[]>
         connect: (options: SerialPortOpenOptions) => Promise<ConnectionInfo>
         write: (string: string) => Promise<string>
-        subscribe: (
+        on: (
+          event: SubscribeChannel,
           callback: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
-        ) => Promise<void>
+        ) => void
       }
     }
   }

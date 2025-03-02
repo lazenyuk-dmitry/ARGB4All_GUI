@@ -3,7 +3,7 @@ import { ConnectionInfo, SerialPortOpenOptions } from './types/serial-port'
 import { AutoDetectTypes } from '@serialport/bindings-cpp'
 import { mainWindow } from '..'
 
-let connection: SerialPort<AutoDetectTypes> | null = null
+let port: SerialPort<AutoDetectTypes> | null = null
 let parser: ReadlineParser
 
 export const getPortsList = async () => {
@@ -11,28 +11,37 @@ export const getPortsList = async () => {
 }
 
 export const connect = async (options: SerialPortOpenOptions): Promise<ConnectionInfo> => {
-  connection = new SerialPort({
+  port = new SerialPort({
     baudRate: 9600,
     ...options
   }).setEncoding('utf8')
 
-  parser = connection.pipe(new ReadlineParser({ delimiter: ';' }))
+  parser = port.pipe(new ReadlineParser({ delimiter: ';' }))
   parser.on('data', (data) => {
+    console.log('COM PORT DATA: ', data)
     mainWindow.webContents.postMessage('serialPort:data', data)
   })
 
+  port.on('open', (data) => {
+    mainWindow.webContents.postMessage('serialPort:open', data)
+  })
+
+  port.on('close', (data) => {
+    mainWindow.webContents.postMessage('serialPort:close', data)
+  })
+
   return {
-    opening: connection.opening,
+    opening: port.opening,
     settings: {
-      autoOpen: connection.settings.autoOpen,
-      endOnClose: connection.settings.endOnClose,
-      highWaterMark: connection.settings.highWaterMark,
-      baudRate: connection.settings.baudRate,
-      path: connection.settings.path
+      autoOpen: port.settings.autoOpen,
+      endOnClose: port.settings.endOnClose,
+      highWaterMark: port.settings.highWaterMark,
+      baudRate: port.settings.baudRate,
+      path: port.settings.path
     }
   }
 }
 
 export const write = async (string: string) => {
-  connection?.write(string)
+  port?.write(string)
 }
