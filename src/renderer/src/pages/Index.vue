@@ -1,12 +1,35 @@
 <template>
-  <q-page padding>
-    <q-color v-model="hex" format-model="rgb" @change="onColorChange" />
+  <q-page class="main-page" padding>
+    <div class="main-page__content">
+      <div class="main-page__mode-settings">
+        dfgdfgdfg
+        <q-slider
+          v-model="brightness"
+          :min="0"
+          :max="100"
+          :step="4"
+          snap
+          label-always
+          color="green"
+          thumb-size="25px"
+          :label-value="brightness + '%'"
+          markers
+        />
+      </div>
+      <q-color
+        v-model="hex"
+        class="main-page__main-color"
+        format-model="rgb"
+        @change="onColorChange"
+      />
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const brightness = ref()
 const hex = ref()
 
 const onColorChange = async (rgb: string) => {
@@ -16,4 +39,17 @@ const onColorChange = async (rgb: string) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.main-page {
+  &__content {
+    display: flex;
+    gap: 60px;
+  }
+  &__mode-settings {
+    flex: auto;
+  }
+  &__main-color {
+    width: 300px;
+  }
+}
+</style>
