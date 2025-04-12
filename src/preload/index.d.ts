@@ -11,7 +11,7 @@ declare global {
         write: (string: string) => Promise<string>
         on: (
           event: SubscribeChannel,
-          callback: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+          callback: (event: Electron.IpcRendererEvent, ...args: string[]) => void
         ) => void
       }
     }

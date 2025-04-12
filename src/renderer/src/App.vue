@@ -7,7 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from './store/global'
+
+const globalStore = useGlobalStore()
+
 window.api.serialPort.on('data', (_e, data) => {
-  console.log('RECEVID: ', data)
+  globalStore.init(data)
 })
 </script>

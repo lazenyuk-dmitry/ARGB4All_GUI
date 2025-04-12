@@ -11,7 +11,7 @@ export default {
     write: (string: string) => ipcRenderer.invoke('serialPort:write', string),
     on: (
       event: SubscribeChannel,
-      callback: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+      callback: (event: Electron.IpcRendererEvent, ...args: string[]) => void
     ) => {
       ipcRenderer.on(`serialPort:${event}`, callback)
     }

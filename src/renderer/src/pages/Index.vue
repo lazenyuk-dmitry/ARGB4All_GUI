@@ -5,7 +5,7 @@
         <q-field bg-color="grey-10" standout="bg-grey-10 text-white" label="Brightness" stack-label>
           <template #control>
             <q-slider
-              v-model="brightness"
+              v-model="state.brightness"
               :min="0"
               :max="100"
               :step="1"
@@ -15,18 +15,13 @@
               thumb-color="purple"
               thumb-size="25px"
               track-size="10px"
-              :label-value="brightness + '%'"
+              :label-value="state.brightness + '%'"
               :markers="10"
             />
           </template>
         </q-field>
       </div>
-      <q-color
-        v-model="hex"
-        class="main-page__main-color"
-        format-model="rgb"
-        @change="onColorChange"
-      />
+      <q-color v-model="state.color" class="main-page__main-color" format-model="rgb" />
     </div>
 
     <q-footer class="bg-dark" bordered>
@@ -40,16 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useGlobalStore } from '@renderer/store/global'
+import { storeToRefs } from 'pinia'
 
-const brightness = ref(0)
-const hex = ref()
-
-const onColorChange = async (rgb: string) => {
-  const valueString = rgb.substring(4, rgb.length - 1)
-  console.log(rgb.substring(4, rgb.length - 1))
-  await window.api.serialPort.write('0:' + valueString + ';')
-}
+const globalStore = useGlobalStore()
+const { state } = storeToRefs(globalStore)
 </script>
 
 <style scoped lang="scss">

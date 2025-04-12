@@ -37,7 +37,7 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
-  initMainApi(mainWindow)
+  initMainApi()
 }
 
 // This method will be called when Electron has finished
