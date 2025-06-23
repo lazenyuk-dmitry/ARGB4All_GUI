@@ -6,7 +6,7 @@
           <template #control>
             <q-slider
               v-model="state.brightness"
-              :min="0"
+              :min="1"
               :max="100"
               :step="1"
               snap

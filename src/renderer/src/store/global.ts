@@ -25,6 +25,15 @@ export const useGlobalStore = defineStore('global-store', () => {
     }
   )
 
+  watch(
+    () => state.brightness,
+    (value) => {
+      if (value !== null) {
+        serialPortWrite('Brightness', value)
+      }
+    }
+  )
+
   const init = (data: string) => {
     const parsedData = parseComData(data)
 
