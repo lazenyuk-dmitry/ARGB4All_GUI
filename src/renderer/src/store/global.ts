@@ -1,6 +1,6 @@
 import { parseComData } from '@renderer/utils/parser'
 import { defineStore } from 'pinia'
-import { reactive, watch } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { SerialWrite } from '../types/serial'
 import { serialPortWrite } from '@renderer/api'
 
@@ -9,11 +9,14 @@ interface GlobalState {
   brightness: null | number
 }
 
+const INIT_DATA: GlobalState = {
+  color: null,
+  brightness: null
+}
+
 export const useGlobalStore = defineStore('global-store', () => {
-  const state = reactive<GlobalState>({
-    color: null,
-    brightness: null
-  })
+  const DEFAULTS = reactive<GlobalState>(JSON.parse(JSON.stringify(INIT_DATA)))
+  const state = reactive<GlobalState>(JSON.parse(JSON.stringify(INIT_DATA)))
 
   watch(
     () => state.color,
@@ -34,7 +37,24 @@ export const useGlobalStore = defineStore('global-store', () => {
     }
   )
 
-  const init = (data: string) => {
+  const hasChanges = computed(() => {
+    let changed = false;
+    for (const key of Object.keys(state)) {
+      if (state[key] !== DEFAULTS[key]) {
+        changed = true;
+        break;
+      }
+    }
+    return changed;
+  })
+
+  const updateDefaults = () => {
+    for (const key of Object.keys(state)) {
+      DEFAULTS[key] = JSON.parse(JSON.stringify(state[key]));
+    }
+  }
+
+  const update = (data: string) => {
     const parsedData = parseComData(data)
 
     parsedData.forEach(({ key, value }) => {
@@ -49,10 +69,31 @@ export const useGlobalStore = defineStore('global-store', () => {
           break
       }
     })
+
+    updateDefaults();
+  }
+
+  const save = () => {
+    serialPortWrite('Save');
+    updateDefaults();
+  }
+
+  const reset = () => {
+    for (const key of Object.keys(state)) {
+      state[key] = DEFAULTS[key];
+    }
+  }
+
+  const resetHard = () => {
+    serialPortWrite('Reset');
   }
 
   return {
     state,
-    init
+    hasChanges,
+    update,
+    save,
+    reset,
+    resetHard,
   }
 })

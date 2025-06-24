@@ -12,6 +12,6 @@ import { useGlobalStore } from './store/global'
 const globalStore = useGlobalStore()
 
 window.api.serialPort.on('data', (_e, data) => {
-  globalStore.init(data)
+  globalStore.update(data)
 })
 </script>

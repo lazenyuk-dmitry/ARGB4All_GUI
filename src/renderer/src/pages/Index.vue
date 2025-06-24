@@ -26,9 +26,10 @@
 
     <q-footer class="bg-dark" bordered>
       <q-toolbar>
+        <q-btn class="q-mr-lg" size="lg" @click="globalStore.resetHard()">Reset</q-btn>
         <q-space />
-        <q-btn class="q-mr-lg" size="lg">Reset</q-btn>
-        <q-btn color="primary" size="lg">Save</q-btn>
+        <q-btn class="q-mr-lg" size="lg" @click="globalStore.reset()" :disable="!hasChanges">Cancel</q-btn>
+        <q-btn color="primary" size="lg" @click="globalStore.save()" :disable="!hasChanges">Save</q-btn>
       </q-toolbar>
     </q-footer>
   </q-page>
@@ -39,7 +40,7 @@ import { useGlobalStore } from '@renderer/store/global'
 import { storeToRefs } from 'pinia'
 
 const globalStore = useGlobalStore()
-const { state } = storeToRefs(globalStore)
+const { state, hasChanges } = storeToRefs(globalStore)
 </script>
 
 <style scoped lang="scss">
