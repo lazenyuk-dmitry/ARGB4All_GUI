@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: Arduino ARGB GUI
+productName: ARGB4All
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: Arduino ARGB GUI
+  executableName: ARGB4All
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
