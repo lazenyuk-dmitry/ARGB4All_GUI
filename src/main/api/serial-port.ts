@@ -16,10 +16,10 @@ export const connect = async (options: SerialPortOpenOptions): Promise<Connectio
     ...options
   }).setEncoding('utf8')
 
-  parser = port.pipe(new ReadlineParser({ delimiter: ';' }))
+  parser = port.pipe(new ReadlineParser({ delimiter: ';', includeDelimiter: false }))
   parser.on('data', (data: string) => {
-    console.log('COM PORT DATA: ', data)
-    mainWindow.webContents.postMessage('serialPort:data', data)
+    console.log('COM PORT DATA: ', data.trim())
+    mainWindow.webContents.postMessage('serialPort:data', data.trim())
   })
 
   port.on('open', (data: string) => {

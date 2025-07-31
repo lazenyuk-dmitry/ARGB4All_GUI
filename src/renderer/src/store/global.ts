@@ -23,7 +23,7 @@ export const useGlobalStore = defineStore('global-store', () => {
     (rgb) => {
       if (rgb) {
         const valueString = rgb.substring(4, rgb.length - 1)
-        serialPortWrite('Color', valueString)
+        serialPortWrite(SerialWrite.Color, valueString)
       }
     }
   )
@@ -32,7 +32,7 @@ export const useGlobalStore = defineStore('global-store', () => {
     () => state.brightness,
     (value) => {
       if (value !== null) {
-        serialPortWrite('Brightness', value)
+        serialPortWrite(SerialWrite.Brightness, value)
       }
     }
   )
@@ -55,26 +55,24 @@ export const useGlobalStore = defineStore('global-store', () => {
   }
 
   const update = (data: string) => {
-    const parsedData = parseComData(data)
+    const { key, value } = parseComData(data)
 
-    parsedData.forEach(({ key, value }) => {
-      switch (key as SerialWrite) {
-        case SerialWrite.Color:
-          state.color = `rgb(${value})`
-          break
-        case SerialWrite.Brightness:
-          state.brightness = parseInt(value)
-          break
-        default:
-          break
-      }
-    })
+    switch (key as SerialWrite) {
+      case SerialWrite.Color:
+        state.color = `rgb(${value})`
+        break
+      case SerialWrite.Brightness:
+        state.brightness = parseInt(value)
+        break
+      default:
+        break
+    }
 
     updateDefaults();
   }
 
   const save = () => {
-    serialPortWrite('Save');
+    serialPortWrite(SerialWrite.Save);
     updateDefaults();
   }
 
@@ -85,7 +83,7 @@ export const useGlobalStore = defineStore('global-store', () => {
   }
 
   const resetHard = () => {
-    serialPortWrite('Reset');
+    serialPortWrite(SerialWrite.Reset);
   }
 
   return {
