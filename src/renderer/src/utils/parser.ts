@@ -4,7 +4,7 @@ export const parseComData = (data: string) => {
   return firstParse.map((part) => {
     const [key, value] = part.split(':')
     return {
-      key: parseInt(key),
+      key: key,
       value: value
     }
   })
