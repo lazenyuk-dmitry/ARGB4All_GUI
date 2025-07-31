@@ -1,6 +1,6 @@
 # ARGB4All GUI
 
-[![English](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png "English") Documentation in English](README_RU.md)
+[![English](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png "English") Documentation in English](/)
 
 Это часть проекта [ARGB4All](https://github.com/lazenyuk-dmitry/ARGB4All).
 А точнее грачияеский интерфейс для управления платой на основе Arduino.
