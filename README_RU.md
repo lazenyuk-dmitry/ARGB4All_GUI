@@ -1,6 +1,6 @@
 # ARGB4All GUI
 
-[![English](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png "English") Documentation in English](/)
+[![English](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png 'English') Documentation in English](/)
 
 Это часть проекта [ARGB4All](https://github.com/lazenyuk-dmitry/ARGB4All).
 А точнее грачияеский интерфейс для управления платой на основе Arduino.
@@ -11,7 +11,7 @@
 ## Поддержка систем
 
 - Windows - :white_check_mark:
-- Linux - *планируется...*
+- Linux - _планируется..._
 
 ## Скриншоты
 
@@ -35,4 +35,3 @@
    `npm run build` - сборка
 
    `npm run build:win` - сборка под Windows
-

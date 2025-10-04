@@ -1,6 +1,6 @@
 # ARGB4All GUI
 
-[![Russian](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ru.png "Russian") Документация на русском](README_RU.md)
+[![Russian](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ru.png 'Russian') Документация на русском](README_RU.md)
 
 This is part of the [ARGB4All](https://github.com/lazenyuk-dmitry/ARGB4All) project.
 Or rather, a rook interface for controlling an Arduino-based board.
@@ -11,7 +11,7 @@ The project is aimed at implementing ARGB backlight control. The firmware can be
 ## System support
 
 - Windows - :white_check_mark:
-- Linux - *planned...*
+- Linux - _planned..._
 
 ## Screenshots
 
@@ -28,10 +28,10 @@ The project is aimed at implementing ARGB backlight control. The firmware can be
 1. Go to the root directory of the project.
 1. Run a few commands in the terminal from the root directory.
 
-    `npm install` - install dependencies
+   `npm install` - install dependencies
 
-    `npm run dev` - run for development
+   `npm run dev` - run for development
 
-    `npm run build` - build
+   `npm run build` - build
 
-    `npm run build:win` - build for Windows
+   `npm run build:win` - build for Windows
