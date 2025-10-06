@@ -38,19 +38,19 @@ export const useGlobalStore = defineStore('global-store', () => {
   )
 
   const hasChanges = computed(() => {
-    let changed = false;
+    let changed = false
     for (const key of Object.keys(state)) {
       if (state[key] !== DEFAULTS[key]) {
-        changed = true;
-        break;
+        changed = true
+        break
       }
     }
-    return changed;
+    return changed
   })
 
   const updateDefaults = () => {
     for (const key of Object.keys(state)) {
-      DEFAULTS[key] = JSON.parse(JSON.stringify(state[key]));
+      DEFAULTS[key] = JSON.parse(JSON.stringify(state[key]))
     }
   }
 
@@ -68,22 +68,23 @@ export const useGlobalStore = defineStore('global-store', () => {
         break
     }
 
-    updateDefaults();
+    updateDefaults()
   }
 
   const save = () => {
-    serialPortWrite(SerialWrite.Save);
-    updateDefaults();
+    serialPortWrite(SerialWrite.Save)
+    updateDefaults()
   }
 
   const reset = () => {
     for (const key of Object.keys(state)) {
-      state[key] = DEFAULTS[key];
+      state[key] = DEFAULTS[key]
     }
   }
 
   const resetHard = () => {
-    serialPortWrite(SerialWrite.Reset);
+    console.log(SerialWrite.Reset)
+    serialPortWrite(SerialWrite.Reset)
   }
 
   return {
@@ -92,6 +93,6 @@ export const useGlobalStore = defineStore('global-store', () => {
     update,
     save,
     reset,
-    resetHard,
+    resetHard
   }
 })
